@@ -18,16 +18,19 @@ Bundle 'walm/jshint.vim'
 
 autocmd! BufWritePost *.js JSHint
 autocmd BufWritePre *.js :%s/\s\+$//e
+autocmd BufWritePre *.js :%s/\t/  /g
 
 set colorcolumn=80 
 set number 
 set smartindent 
 set tabstop=2 
 set shiftwidth=2 
+set expandtab
+
 filetype plugin indent on  
 
-let g:UltiSnipsExpandTrigger="<tab>"                                            
-let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+let g:UltiSnipsExpandTrigger="<c-tab>"                                            
+let g:UltiSnipsJumpForwardTrigger="<c-tab>"                                       
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>" 
 
 colorscheme seoul256
