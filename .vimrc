@@ -18,7 +18,6 @@ Bundle 'walm/jshint.vim'
 
 autocmd! BufWritePost *.js JSHint
 autocmd BufWritePre *.js :%s/\s\+$//e
-autocmd BufWritePre *.js :%s/\t/  /g
 
 set colorcolumn=80 
 set number 
