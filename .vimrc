@@ -8,8 +8,13 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'junegunn/seoul256.vim'
-Bundle 'SirVer/ultisnips'
 Bundle 'matthewsimo/angular-vim-snippets'
+
+" garbas' snipmate
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
 
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/nerdtree'
@@ -64,6 +69,7 @@ set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 set wildmenu
 set wildmode=list:longest,full
+set mouse=a
 
 map <Down> <C-W>j
 map <Up> <C-W>k
