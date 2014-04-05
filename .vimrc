@@ -1,3 +1,6 @@
+" Following lines added by drush vimrc-install on Thu, 03 Apr 2014 16:09:05 +0000.
+set nocompatible
+" End of vimrc-install additions.
 set nocompatible               
 filetype off                  
 set term=xterm-256color
@@ -15,7 +18,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-
+Bundle 'nanotech/jellybeans.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-commentary'
@@ -23,6 +26,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/EasyGrep'
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -64,7 +69,7 @@ nnoremap <leader>b :NERDTreeFromBookmark<space>
 let g:snip_start_tag = "@"
 let g:snip_end_tag = "@"
 
-colorscheme seoul256
+colorscheme jellybeans
 set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 set wildmenu
@@ -75,3 +80,5 @@ map <Down> <C-W>j
 map <Up> <C-W>k
 map <Left> <C-W>h
 map <Right> <C-W>l
+
+let g:dbgPavimPathMap = [['/Users/beneppel/Sites/drupalv3', '/var/www/drupalv3local'],]
