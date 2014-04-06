@@ -29,6 +29,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/EasyGrep'
 
+
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'jelera/vim-javascript-syntax'
@@ -81,4 +82,22 @@ map <Up> <C-W>k
 map <Left> <C-W>h
 map <Right> <C-W>l
 
-let g:dbgPavimPathMap = [['/Users/beneppel/Sites/drupalv3', '/var/www/drupalv3local'],]
+
+"xdebug config for php
+Bundle 'joonty/vdebug.git'
+ let g:vdebug_options= {
+     \    "port" : 9001,
+     \    "server" : '',
+     \    "timeout" : 20,
+     \    "on_close" : 'detach',
+     \    "break_on_open" : 1,
+     \    "ide_key" : '',
+     \    "path_maps" : {},
+     \    "debug_window_level" : 0,
+     \    "debug_file_level" : 3,
+     \    "debug_file" : "~/vdebug.log",
+     \    "watch_window_style" : 'expanded',
+     \    "marker_default" : '⬦',
+     \    "marker_closed_tree" : '▸',
+     \    "marker_open_tree" : '▾'
+     \}
