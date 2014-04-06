@@ -1,6 +1,3 @@
-" Following lines added by drush vimrc-install on Thu, 03 Apr 2014 16:09:05 +0000.
-set nocompatible
-" End of vimrc-install additions.
 set nocompatible               
 filetype off                  
 set term=xterm-256color
@@ -28,7 +25,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/EasyGrep'
-
+Bundle 'donnut/vim-php54-syntax'
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -83,8 +80,9 @@ map <Left> <C-W>h
 map <Right> <C-W>l
 
 
-"xdebug config for php
 Bundle 'joonty/vdebug.git'
+Bundle 'joonty/vim-phpqa'
+"xdebug config for php
  let g:vdebug_options= {
      \    "port" : 9001,
      \    "server" : '',
@@ -101,3 +99,6 @@ Bundle 'joonty/vdebug.git'
      \    "marker_closed_tree" : '▸',
      \    "marker_open_tree" : '▾'
      \}
+
+set tags=~/php.tags
+let g:phpqa_codesniffer_args = "--standard=Drupal"
