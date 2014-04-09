@@ -1,5 +1,5 @@
-set nocompatible               
-filetype off                  
+set nocompatible
+filetype off
 set term=xterm-256color
 syntax on
 
@@ -24,8 +24,13 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'kien/ctrlp.vim'
+
+"Easy Grep to search for shit.
 Bundle 'vim-scripts/EasyGrep'
-Bundle 'donnut/vim-php54-syntax'
+let g:EasyGrepFilesToExclude = "*.tags,*.git\*"
+
+
+Bundle 'sebastiankessler/phpcomplete.vim'
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -33,16 +38,16 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'walm/jshint.vim'
 
 autocmd! BufWritePost *.js JSHint
-autocmd BufWritePre *.js :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
 
-set colorcolumn=80 
-set number 
-set smartindent 
-set tabstop=2 
-set shiftwidth=2 
+set colorcolumn=80
+set number
+set smartindent
+set tabstop=2
+set shiftwidth=2
 set expandtab
 
-filetype plugin indent on  
+filetype plugin indent on
 
 let mapleader = ","
 
@@ -68,7 +73,6 @@ let g:snip_start_tag = "@"
 let g:snip_end_tag = "@"
 
 colorscheme jellybeans
-set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 set wildmenu
 set wildmode=list:longest,full
@@ -82,6 +86,9 @@ map <Right> <C-W>l
 
 Bundle 'joonty/vdebug.git'
 Bundle 'joonty/vim-phpqa'
+Bundle 'vim-scripts/taglist.vim'
+filetype plugin on
+
 "xdebug config for php
  let g:vdebug_options= {
      \    "port" : 9001,
@@ -100,5 +107,6 @@ Bundle 'joonty/vim-phpqa'
      \    "marker_open_tree" : '▾'
      \}
 
-set tags=~/php.tags
+set tags=php.tags
 let g:phpqa_codesniffer_args = "--standard=Drupal"
+let g:phpqa_messdetector_cmd = "~/phpmd"
