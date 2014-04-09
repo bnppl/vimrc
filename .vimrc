@@ -1,95 +1,87 @@
 set nocompatible
-filetype off
-set term=xterm-256color
-syntax on
 
+"Vundle requirements
+filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
 Bundle 'gmarik/vundle'
+
+"Colours
+set term=xterm-256color
 Bundle 'junegunn/seoul256.vim'
-Bundle 'matthewsimo/angular-vim-snippets'
-
-" garbas' snipmate
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
 Bundle 'nanotech/jellybeans.vim'
-Bundle 'ervandew/supertab'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'kien/ctrlp.vim'
+colorscheme jellybeans
 
-"Easy Grep to search for shit.
-Bundle 'vim-scripts/EasyGrep'
-let g:EasyGrepFilesToExclude = "*.tags,*.git\*"
-
-
-Bundle 'sebastiankessler/phpcomplete.vim'
-
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'walm/jshint.vim'
-
-autocmd! BufWritePost *.js JSHint
-autocmd BufWritePre * :%s/\s\+$//e
-
+"general editer settings
+syntax on
 set colorcolumn=80
 set number
 set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
+let mapleader = ","
+set mouse=a
 filetype plugin indent on
 
-let mapleader = ","
+set wildmenu
+set wildmode=list:longest,full
 
+"Remove trailing whitespace on save.
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Snippets related stuff.
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+let g:snip_start_tag = "@"
+let g:snip_end_tag = "@"
+
+"Use tab for completion
+Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
+
 " NERDTree
+Bundle 'scrooloose/nerdtree'
 let NERDTreeDirArrows=1
-let NERDTreeIgnore=[
-            \ '\(lib\|vendor\|node_modules\|bower_components\|deps\|package\|trigger_package\)$[[dir]]',
-            \ '\(build\|ebin\|target\)$[[dir]]',
-            \ '\.py[co]$[[file]]',
-            \ '\~$[[file]]',
-            \ '\.\(class\|beam\|o\)$[[file]]',
-            \ '\.\(jpg\|png\|gif\|pdf\|ico\|JPG\|PNG\|GIF\|PDF\|ICO\)$[[file]]'
-            \]
 let NERDTreeChDirMode=2
 let NERDTreeMinimalUI=1
 let NERDTreeShowBookmarks=1
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>b :NERDTreeFromBookmark<space>
 
-" Snippets plugin
-let g:snip_start_tag = "@"
-let g:snip_end_tag = "@"
+"Utils
+Bundle 'L9'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
 
-colorscheme jellybeans
+"Git integration
+Bundle 'tpope/vim-fugitive'
 
-set wildmenu
-set wildmode=list:longest,full
-set mouse=a
+"Searching for things / files
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/EasyGrep'
+let g:EasyGrepFilesToExclude = "*.tags,*.git\*"
 
+"javascript related stuff
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'walm/jshint.vim'
+
+"Run JSHint on save (requires JSHint to be installed).
+autocmd! BufWritePost *.js JSHint
+
+"Remap the arrow keys to change windows.
 map <Down> <C-W>j
 map <Up> <C-W>k
 map <Left> <C-W>h
 map <Right> <C-W>l
 
-
+"For debugging in PHP
 Bundle 'joonty/vdebug.git'
-Bundle 'joonty/vim-phpqa'
-Bundle 'vim-scripts/taglist.vim'
-filetype plugin on
-
-"xdebug config for php
+"xdebug config for php (match port in php.ini)
  let g:vdebug_options= {
      \    "port" : 9001,
      \    "server" : '',
@@ -107,6 +99,14 @@ filetype plugin on
      \    "marker_open_tree" : '▾'
      \}
 
+"PHP Completion
+Bundle 'sebastiankessler/phpcomplete.vim'
+
+"Tags - for autocompletion and jumping to functions.
+Bundle 'vim-scripts/taglist.vim'
 set tags=php.tags
+
+"PHP QA stuff - requires mess detector and codesniffer to be instealled.
+Bundle 'joonty/vim-phpqa'
 let g:phpqa_codesniffer_args = "--standard=Drupal"
-let g:phpqa_messdetector_cmd = "~/phpmd"
+let g:phpqa_messdetector_cmd = "~/phpmd" "path to mess detector bin
