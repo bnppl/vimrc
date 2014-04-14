@@ -57,6 +57,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-abolish'
 
 "Git integration
 Bundle 'tpope/vim-fugitive'
@@ -101,12 +102,29 @@ Bundle 'joonty/vdebug.git'
 
 "PHP Completion
 Bundle 'sebastiankessler/phpcomplete.vim'
+"Bundle 'mbbill/code_complete'
+
+"PHP Refactor
+Bundle 'vim-php/vim-php-refactoring'
+let g:php_refactor_command='php ~/Git/php-refactoring-browser/refactor'
+
+"PHP Documentor
+Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+inoremap <leader>d <ESC>:call PhpDocSingle()<CR>i
+nnoremap <leader>d :call PhpDocSingle()<CR>
+vnoremap <leader>d :call PhpDocRange()<CR>
 
 "Tags - for autocompletion and jumping to functions.
 Bundle 'vim-scripts/taglist.vim'
 set tags=php.tags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 "PHP QA stuff - requires mess detector and codesniffer to be instealled.
 Bundle 'joonty/vim-phpqa'
 let g:phpqa_codesniffer_args = "--standard=Drupal"
 let g:phpqa_messdetector_cmd = "~/phpmd" "path to mess detector bin
+let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
+
+"move temp files to temp directory
+set dir=~/.vimswap//,/var/tmp//,/tmp//,.
