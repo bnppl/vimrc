@@ -106,6 +106,7 @@ Bundle 'sebastiankessler/phpcomplete.vim'
 
 "PHP Refactor
 Bundle 'vim-php/vim-php-refactoring'
+" path to https://github.com/QafooLabs/php-refactoring-browser bin
 let g:php_refactor_command='php ~/Git/php-refactoring-browser/refactor'
 
 "PHP Documentor
