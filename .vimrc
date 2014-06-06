@@ -10,7 +10,8 @@ Bundle 'gmarik/vundle'
 set term=xterm-256color
 Bundle 'junegunn/seoul256.vim'
 Bundle 'nanotech/jellybeans.vim'
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme seoul256
 
 "general editer settings
 syntax on
@@ -58,6 +59,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-abolish'
+Bundle 'Valloric/ListToggle'
 
 "Git integration
 Bundle 'tpope/vim-fugitive'
@@ -120,6 +122,9 @@ Bundle 'vim-scripts/taglist.vim'
 set tags=php.tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+"Open Taglist for file and select the window.
+nnoremap <leader>t :TlistToggle<CR><C-W>h
+
 
 "PHP QA stuff - requires mess detector and codesniffer to be instealled.
 Bundle 'joonty/vim-phpqa'
@@ -127,5 +132,12 @@ let g:phpqa_codesniffer_args = "--standard=Drupal"
 let g:phpqa_messdetector_cmd = "~/phpmd" "path to mess detector bin
 let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
 
+" Clover code coverage XML file
+let g:phpqa_codecoverage_file = "/var/www/drupalv3/phpunit/coverageReport.xml"
+" " Show markers for lines that ARE covered by tests (default = 1)
+let g:phpqa_codecoverage_showcovered = 0
+
 "move temp files to temp directory
-set dir=~/.vimswap//,/var/tmp//,/tmp//,.
+"set dir=~/.vimswap//,/var/tmp//,/tmp//,.
+set noswapfile
+set nobackup
