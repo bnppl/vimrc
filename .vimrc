@@ -1,15 +1,39 @@
 set nocompatible
 
-"Vundle requirements
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
+
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 "Colours
 set term=xterm-256color
-Bundle 'junegunn/seoul256.vim'
-Bundle 'nanotech/jellybeans.vim'
+NeoBundle 'junegunn/seoul256.vim'
+NeoBundle 'nanotech/jellybeans.vim'
 "colorscheme jellybeans
 colorscheme seoul256
 
@@ -18,8 +42,8 @@ syntax on
 set colorcolumn=80
 set number
 set smartindent
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 let mapleader = ","
 set mouse=a
@@ -32,19 +56,19 @@ set wildmode=list:longest,full
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Snippets related stuff.
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
 let g:snip_start_tag = "@"
 let g:snip_end_tag = "@"
 
 "Use tab for completion
-Bundle 'ervandew/supertab'
+NeoBundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 
 " NERDTree
-Bundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdtree'
 let NERDTreeDirArrows=1
 let NERDTreeChDirMode=2
 let NERDTreeMinimalUI=1
@@ -53,25 +77,25 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>b :NERDTreeFromBookmark<space>
 
 "Utils
-Bundle 'L9'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-abolish'
-Bundle 'Valloric/ListToggle'
+NeoBundle 'L9'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'Valloric/ListToggle'
 
 "Git integration
-Bundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 
 "Searching for things / files
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-scripts/EasyGrep'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'vim-scripts/EasyGrep'
 let g:EasyGrepFilesToExclude = "*.tags,*.git\*"
 
 "javascript related stuff
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'walm/jshint.vim'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'walm/jshint.vim'
 
 "Run JSHint on save (requires JSHint to be installed).
 autocmd! BufWritePost *.js JSHint
@@ -83,7 +107,7 @@ map <Left> <C-W>h
 map <Right> <C-W>l
 
 "For debugging in PHP
-Bundle 'joonty/vdebug.git'
+NeoBundle 'joonty/vdebug.git'
 "xdebug config for php (match port in php.ini)
  let g:vdebug_options= {
      \    "port" : 9001,
@@ -103,22 +127,22 @@ Bundle 'joonty/vdebug.git'
      \}
 
 "PHP Completion
-Bundle 'sebastiankessler/phpcomplete.vim'
-"Bundle 'mbbill/code_complete'
+NeoBundle 'sebastiankessler/phpcomplete.vim'
+NeoBundle 'mbbill/code_complete'
 
 "PHP Refactor
-Bundle 'vim-php/vim-php-refactoring'
+NeoBundle 'vim-php/vim-php-refactoring'
 " path to https://github.com/QafooLabs/php-refactoring-browser bin
 let g:php_refactor_command='php ~/Git/php-refactoring-browser/refactor'
 
 "PHP Documentor
-Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 inoremap <leader>d <ESC>:call PhpDocSingle()<CR>i
 nnoremap <leader>d :call PhpDocSingle()<CR>
 vnoremap <leader>d :call PhpDocRange()<CR>
 
 "Tags - for autocompletion and jumping to functions.
-Bundle 'vim-scripts/taglist.vim'
+NeoBundle 'vim-scripts/taglist.vim'
 set tags=php.tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -127,15 +151,14 @@ nnoremap <leader>t :TlistToggle<CR><C-W>h
 
 
 "PHP QA stuff - requires mess detector and codesniffer to be instealled.
-Bundle 'joonty/vim-phpqa'
-let g:phpqa_codesniffer_args = "--standard=Drupal"
+NeoBundle 'joonty/vim-phpqa'
 let g:phpqa_messdetector_cmd = "~/phpmd" "path to mess detector bin
-let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
+"let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
 
 " Clover code coverage XML file
-let g:phpqa_codecoverage_file = "/var/www/drupalv3/phpunit/coverageReport.xml"
+let g:phpqa_codecoverage_file = "/home/ben/Sites/tempo-cl-pl-api-wrapper/app/test/coverage.xml"
 " " Show markers for lines that ARE covered by tests (default = 1)
-let g:phpqa_codecoverage_showcovered = 0
+let g:phpqa_codecoverage_showcovered = 1
 
 "move temp files to temp directory
 "set dir=~/.vimswap//,/var/tmp//,/tmp//,.
