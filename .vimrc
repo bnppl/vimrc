@@ -57,14 +57,6 @@ set wildmode=list:longest,full
 "Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Snippets related stuff.
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'garbas/vim-snipmate'
-NeoBundle 'honza/vim-snippets'
-let g:snip_start_tag = "@"
-let g:snip_end_tag = "@"
-
 "Utils
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-commentary'
@@ -80,7 +72,7 @@ NeoBundle 'tpope/vim-fugitive'
 "Searching for things / files
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'vim-scripts/EasyGrep'
-let g:EasyGrepFilesToExclude = "*.tags,*.git\*"
+let g:EasyGrepFilesToExclude = "tags,*.git\*"
 
 "javascript related stuff
 NeoBundle 'jelera/vim-javascript-syntax'
@@ -90,8 +82,8 @@ NeoBundle 'walm/jshint.vim'
 autocmd! BufWritePost *.js JSHint
 
 "Remap the arrow keys to change windows.
-map <Down> <C-W>j
 map <Up> <C-W>k
+map <Down> <C-W>j
 map <Left> <C-W>h
 map <Right> <C-W>l
 
@@ -121,7 +113,14 @@ NeoBundle 'joonty/vdebug.git'
 
 "PHP Completion
 NeoBundle 'sebastiankessler/phpcomplete.vim'
-NeoBundle 'mbbill/code_complete'
+
+"Omnicomplete on ctrl space
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+        \ "\<lt>C-n>" :
+        \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+        \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+        \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 "PHP Refactor
 NeoBundle 'vim-php/vim-php-refactoring'
@@ -136,7 +135,7 @@ vnoremap <leader>d :call PhpDocRange()<CR>
 
 "Tags - for autocompletion and jumping to functions.
 NeoBundle 'vim-scripts/taglist.vim'
-set tags=php.tags
+set tags=tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 "Open Taglist for file and select the window.
