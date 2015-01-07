@@ -10,6 +10,8 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+set clipboard=unnamed
+
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -39,7 +41,7 @@ colorscheme seoul256
 
 "general editer settings
 syntax on
-set colorcolumn=80
+set colorcolumn=80,120
 set number
 set smartindent
 set tabstop=4
@@ -62,19 +64,6 @@ NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'honza/vim-snippets'
 let g:snip_start_tag = "@"
 let g:snip_end_tag = "@"
-
-"Use tab for completion
-NeoBundle 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context"
-
-" NERDTree
-NeoBundle 'scrooloose/nerdtree'
-let NERDTreeDirArrows=1
-let NERDTreeChDirMode=2
-let NERDTreeMinimalUI=1
-let NERDTreeShowBookmarks=1
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>b :NERDTreeFromBookmark<space>
 
 "Utils
 NeoBundle 'L9'
@@ -110,21 +99,25 @@ map <Right> <C-W>l
 NeoBundle 'joonty/vdebug.git'
 "xdebug config for php (match port in php.ini)
  let g:vdebug_options= {
-     \    "port" : 9001,
-     \    "server" : '',
-     \    "timeout" : 20,
-     \    "on_close" : 'detach',
-     \    "break_on_open" : 1,
-     \    "ide_key" : '',
-     \    "path_maps" : {},
-     \    "debug_window_level" : 0,
-     \    "debug_file_level" : 3,
-     \    "debug_file" : "~/vdebug.log",
-     \    "watch_window_style" : 'expanded',
-     \    "marker_default" : '⬦',
-     \    "marker_closed_tree" : '▸',
-     \    "marker_open_tree" : '▾'
-     \}
+             \    "port" : 9001,
+             \    "server" : '',
+             \    "timeout" : 20,
+             \    "on_close" : 'detach',
+             \    "break_on_open" : 1,
+             \    "ide_key" : '',
+             \    "path_maps" : {
+             \      '/srv/opg-core-api/application/current' : '/Users/beneppel/Git/moj/opg-core-back-end',
+             \      '/srv/opg-core-membrane/application/current' : '/Users/beneppel/Git/moj/opg-core-auth-membrane',
+             \      '/srv/opg-core-front/application/current' : '/Users/beneppel/Git/moj/opg-core-front-end'
+             \    },
+             \    "debug_window_level" : 0,
+             \    "debug_file_level" : 3,
+             \    "debug_file" : "~/vdebug.log",
+             \    "watch_window_style" : 'expanded',
+             \    "marker_default" : '⬦',
+             \    "marker_closed_tree" : '▸',
+             \    "marker_open_tree" : '▾'
+             \}
 
 "PHP Completion
 NeoBundle 'sebastiankessler/phpcomplete.vim'
@@ -133,7 +126,7 @@ NeoBundle 'mbbill/code_complete'
 "PHP Refactor
 NeoBundle 'vim-php/vim-php-refactoring'
 " path to https://github.com/QafooLabs/php-refactoring-browser bin
-let g:php_refactor_command='php ~/Git/php-refactoring-browser/refactor'
+let g:php_refactor_command='php ~/Git/php-refactoring-browser/refactor.phar'
 
 "PHP Documentor
 NeoBundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
@@ -152,7 +145,7 @@ nnoremap <leader>t :TlistToggle<CR><C-W>h
 
 "PHP QA stuff - requires mess detector and codesniffer to be instealled.
 NeoBundle 'joonty/vim-phpqa'
-let g:phpqa_messdetector_cmd = "~/phpmd" "path to mess detector bin
+let g:phpqa_messdetector_cmd = "~/Git/phpmd/phpmd" "path to mess detector bin
 "let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
 
 " Clover code coverage XML file
@@ -164,3 +157,8 @@ let g:phpqa_codecoverage_showcovered = 1
 "set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 set noswapfile
 set nobackup
+
+nmap <C-F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+imap <C-F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+nmap <C-F2> :.w !pbcopy<CR><CR>
+vmap <C-F2> :w !pbcopy<CR><CR>
