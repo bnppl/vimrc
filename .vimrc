@@ -4,13 +4,10 @@ set nocompatible
 if !1 | finish | endif
 
 if has('vim_starting')
-  set nocompatible               " Be iMproved
 
   " Required:
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
-set clipboard=unnamed
 
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -69,14 +66,18 @@ NeoBundle 'Valloric/ListToggle'
 "Git integration
 NeoBundle 'tpope/vim-fugitive'
 
+"Undo
+NeoBundle 'sjl/gundo.vim'
+nnoremap <leader>gu :GundoToggle<CR>
+
 "Searching for things / files
-NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'vim-scripts/EasyGrep'
 let g:EasyGrepFilesToExclude = "tags,*.git\*"
 
 "javascript related stuff
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'walm/jshint.vim'
+NeoBundle 'marijnh/tern_for_vim'
 
 "Run JSHint on save (requires JSHint to be installed).
 autocmd! BufWritePost *.js JSHint
@@ -122,6 +123,15 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
         \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
+"I always press F1 by mistake instead of escape
+function! MapF1()
+  if &buftype == "help"
+    exec 'quit'
+  else
+    exec 'help'
+  endif
+endfunction
+
 "PHP Refactor
 NeoBundle 'vim-php/vim-php-refactoring'
 " path to https://github.com/QafooLabs/php-refactoring-browser bin
@@ -141,23 +151,17 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 "Open Taglist for file and select the window.
 nnoremap <leader>t :TlistToggle<CR><C-W>h
 
+"Editor config
+NeoBundle 'editorconfig/editorconfig-vim'
+command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
 
 "PHP QA stuff - requires mess detector and codesniffer to be instealled.
 NeoBundle 'joonty/vim-phpqa'
 let g:phpqa_messdetector_cmd = "~/Git/phpmd/phpmd" "path to mess detector bin
-"let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
-
-" Clover code coverage XML file
-let g:phpqa_codecoverage_file = "/home/ben/Sites/tempo-cl-pl-api-wrapper/app/test/coverage.xml"
-" " Show markers for lines that ARE covered by tests (default = 1)
-let g:phpqa_codecoverage_showcovered = 1
+let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector ruleset
 
 "move temp files to temp directory
 "set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 set noswapfile
 set nobackup
 
-nmap <C-F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-imap <C-F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-nmap <C-F2> :.w !pbcopy<CR><CR>
-vmap <C-F2> :w !pbcopy<CR><CR>
