@@ -3,26 +3,15 @@ set nocompatible
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
+" Required:
 if has('vim_starting')
-
-  " Required:
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
-" Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
-
 " Let NeoBundle manage NeoBundle
-" Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
 call neobundle#end()
 
-" Required:
 filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
@@ -46,7 +35,6 @@ set shiftwidth=4
 set expandtab
 let mapleader = ","
 set mouse=a
-filetype plugin indent on
 
 set wildmenu
 set wildmode=list:longest,full
@@ -54,7 +42,19 @@ set wildmode=list:longest,full
 "Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
 
-"Utils
+"Make F1 toggle help
+inoremap <F1> <Esc>
+noremap <F1> :call MapF1()<CR>
+
+function! MapF1()
+  if &buftype == "help"
+    exec 'quit'
+  else
+    exec 'help'
+  endif
+endfunction
+
+"Essentials
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-repeat'
@@ -62,22 +62,47 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-abolish'
 NeoBundle 'Valloric/ListToggle'
-
-"Git integration
 NeoBundle 'tpope/vim-fugitive'
 
 "Undo
 NeoBundle 'sjl/gundo.vim'
-nnoremap <leader>gu :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
+
+"Ultisnips
+NeoBundle 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+NeoBundle 'honza/vim-snippets'
 
 "Searching for things / files
 NeoBundle 'vim-scripts/EasyGrep'
 let g:EasyGrepFilesToExclude = "tags,*.git\*"
 
+"typescript
+NeoBundle 'clausreinke/typescript-tools'
+NeoBundle 'leafgarland/typescript-vim'
+au BufRead,BufNewFile *.ts        setlocal filetype=typescript
+set rtp+=/usr/local/lib/node_modules/typescript-tools/
+
+
 "javascript related stuff
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'walm/jshint.vim'
+NeoBundle 'maksimr/vim-jsbeautify'
+
 NeoBundle 'marijnh/tern_for_vim'
+let g:tern_map_keys=1
+let g:tern_show_argument_hints='on_hold'
+
+map <c-f> :call JsBeautify()<cr>
+nnoremap <leader>td :TernDef<CR>
+nnoremap <leader>tds :TernDefSplit<CR>
+nnoremap <leader>tt :TernType<CR>
+nnoremap <leader>tpd :TernDefPreview<CR>
+nnoremap <leader>tr :TernRefs<CR>
+nnoremap <leader>rr :TernRename<CR>
 
 "Run JSHint on save (requires JSHint to be installed).
 autocmd! BufWritePost *.js JSHint
@@ -123,14 +148,6 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
         \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
-"I always press F1 by mistake instead of escape
-function! MapF1()
-  if &buftype == "help"
-    exec 'quit'
-  else
-    exec 'help'
-  endif
-endfunction
 
 "PHP Refactor
 NeoBundle 'vim-php/vim-php-refactoring'
@@ -148,8 +165,6 @@ NeoBundle 'vim-scripts/taglist.vim'
 set tags=tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-"Open Taglist for file and select the window.
-nnoremap <leader>t :TlistToggle<CR><C-W>h
 
 "Editor config
 NeoBundle 'editorconfig/editorconfig-vim'
@@ -164,4 +179,3 @@ let g:phpqa_messdetector_ruleset = "~/Git/phpmd/rules.xml" "mess detector rulese
 "set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 set noswapfile
 set nobackup
-
