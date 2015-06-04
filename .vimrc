@@ -64,6 +64,9 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'Valloric/ListToggle'
 NeoBundle 'tpope/vim-fugitive'
 
+NeoBundle 'airblade/vim-gitgutter'
+
+
 "Undo
 NeoBundle 'sjl/gundo.vim'
 nnoremap <leader>u :GundoToggle<CR>
@@ -80,11 +83,19 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'vim-scripts/EasyGrep'
 let g:EasyGrepFilesToExclude = "tags,*.git\*"
 
+
+"vim signature - mark helper
+NeoBundle 'kshenoy/vim-signature'
+
 "typescript
 NeoBundle 'clausreinke/typescript-tools'
 NeoBundle 'leafgarland/typescript-vim'
 au BufRead,BufNewFile *.ts        setlocal filetype=typescript
 set rtp+=/usr/local/lib/node_modules/typescript-tools/
+if !exists("g:ycm_semantic_triggers")
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
 
 
 "javascript related stuff
@@ -117,16 +128,14 @@ map <Right> <C-W>l
 NeoBundle 'joonty/vdebug.git'
 "xdebug config for php (match port in php.ini)
  let g:vdebug_options= {
-             \    "port" : 9001,
+             \    "port" : 9000,
              \    "server" : '',
              \    "timeout" : 20,
              \    "on_close" : 'detach',
              \    "break_on_open" : 1,
              \    "ide_key" : '',
              \    "path_maps" : {
-             \      '/srv/opg-core-api/application/current' : '/Users/beneppel/Git/moj/opg-core-back-end',
-             \      '/srv/opg-core-membrane/application/current' : '/Users/beneppel/Git/moj/opg-core-auth-membrane',
-             \      '/srv/opg-core-front/application/current' : '/Users/beneppel/Git/moj/opg-core-front-end'
+             \      '/app' : '/Users/beneppel/Git/moj/opg-core-back-end'
              \    },
              \    "debug_window_level" : 0,
              \    "debug_file_level" : 3,
@@ -148,6 +157,8 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
         \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
+"YouCompleteMe
+" NeoBundle 'Valloric/YouCompleteMe'
 
 "PHP Refactor
 NeoBundle 'vim-php/vim-php-refactoring'
